@@ -74,6 +74,7 @@ final class SeedPriorityRules
 		return isSeed(name)
 			|| name.endsWith(" sapling")
 			|| name.endsWith(" seedling")
+			|| name.endsWith(" seedling (w)")
 			|| name.contains("compost")
 			|| name.equals("weeds")
 			|| name.equals("rake")

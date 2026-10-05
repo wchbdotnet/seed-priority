@@ -22,7 +22,10 @@ public class SeedPriorityRulesTest
 	{
 		assertTrue(SeedPriorityRules.isFarmingItem("Ranarr seed"));
 		assertTrue(SeedPriorityRules.isFarmingItem("Oak sapling"));
+		assertTrue(SeedPriorityRules.isFarmingItem("Oak seedling (w)"));
 		assertTrue(SeedPriorityRules.isFarmingItem("Ultracompost"));
+		assertTrue(SeedPriorityRules.isFarmingItem("Bottomless compost bucket"));
+		assertTrue(SeedPriorityRules.isFarmingItem("Bucket of supercompost"));
 		assertTrue(SeedPriorityRules.isFarmingItem("Watering can(8)"));
 		assertFalse(SeedPriorityRules.isFarmingItem("Rune scimitar"));
 	}
