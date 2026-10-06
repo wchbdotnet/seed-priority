@@ -1,9 +1,5 @@
 # Seed Priority
 
-<p align="center">
-  <img width="96" src="icon.png" alt="Seed Priority icon">
-</p>
-
 Seed Priority makes the farming interaction you intended win when several targets occupy the same tile.
 
 You select a seed and click the bird house beneath your character, but another player receives the `Use` action instead. Or a sapling loses to an unrelated target standing over its patch. Seed Priority removes that friction by moving the relevant farming destination to the top of RuneLite's existing menu.
@@ -12,12 +8,10 @@ No clicks are automated and no options disappear. The intended farming interacti
 
 ## Supported interactions
 
-| Priority | Selected item | Preferred destination |
-| ---: | --- | --- |
-| 1 | Seeds | Bird houses |
-| 2 | Compostable material | Compost bins and Big Compost Bins |
-| 3 | Seeds, saplings, seedlings, compost, farming tools, and supplies | Farming patches and allotments |
-| 4 | Items used on a Tool Leprechaun | Tool Leprechauns |
+1. **Bird houses:** Seeds are prioritised over players, ground items, and other unrelated targets.
+2. **Compost bins and Big Compost Bins:** Compostable material is prioritised when filling a bin.
+3. **Farming patches and allotments:** Seeds, saplings, seedlings, compost, farming tools, and supplies are prioritised for their relevant patch.
+4. **Tool Leprechauns:** Selected items are prioritised when used on a Tool Leprechaun.
 
 Bird houses have the highest priority, followed by compost bins, patches, and Tool Leprechauns. If more than one valid destination is under the cursor, the most specific farming interaction wins.
 
