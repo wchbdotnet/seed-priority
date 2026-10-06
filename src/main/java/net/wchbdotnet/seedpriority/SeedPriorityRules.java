@@ -1,6 +1,7 @@
 package net.wchbdotnet.seedpriority;
 
 import java.util.Locale;
+import java.util.function.Predicate;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.client.util.Text;
@@ -16,14 +17,21 @@ final class SeedPriorityRules
 	{
 	}
 
-	static int bestDestinationIndex(MenuEntry[] entries, String selectedItemName)
+	static int bestDestinationIndex(
+		MenuEntry[] entries,
+		String selectedItemName,
+		Predicate<MenuEntry> hasFarmingPatchActions)
 	{
 		int bestIndex = -1;
 		int bestPriority = 0;
 		for (int index = 0; index < entries.length; index++)
 		{
 			MenuEntry entry = entries[index];
-			int priority = destinationPriority(entry.getType(), entry.getTarget(), selectedItemName);
+			int priority = destinationPriority(
+				entry.getType(),
+				entry.getTarget(),
+				selectedItemName,
+				hasFarmingPatchActions.test(entry));
 			if (priority >= bestPriority && priority > 0)
 			{
 				bestIndex = index;
@@ -34,6 +42,15 @@ final class SeedPriorityRules
 	}
 
 	static int destinationPriority(MenuAction action, String target, String selectedItemName)
+	{
+		return destinationPriority(action, target, selectedItemName, false);
+	}
+
+	static int destinationPriority(
+		MenuAction action,
+		String target,
+		String selectedItemName,
+		boolean hasFarmingPatchActions)
 	{
 		String destination = destinationName(target);
 		String itemName = normalize(selectedItemName);
@@ -48,7 +65,7 @@ final class SeedPriorityRules
 			{
 				return COMPOST_BIN_PRIORITY;
 			}
-			if (isPatch(destination) && isFarmingItem(itemName))
+			if ((isPatch(destination) || hasFarmingPatchActions) && isFarmingItem(itemName))
 			{
 				return PATCH_PRIORITY;
 			}
@@ -90,6 +107,29 @@ final class SeedPriorityRules
 			|| name.equals("volcanic ash")
 			|| name.equals("sulphurous fertiliser")
 			|| name.equals("gricoller's fertiliser");
+	}
+
+	static boolean hasFarmingPatchActions(String[] actions)
+	{
+		if (actions == null)
+		{
+			return false;
+		}
+
+		boolean inspect = false;
+		boolean guide = false;
+		for (String action : actions)
+		{
+			if ("Inspect".equalsIgnoreCase(action))
+			{
+				inspect = true;
+			}
+			else if ("Guide".equalsIgnoreCase(action))
+			{
+				guide = true;
+			}
+		}
+		return inspect && guide;
 	}
 
 	private static boolean isSeed(String itemName)
